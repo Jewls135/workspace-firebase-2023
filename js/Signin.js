@@ -48,5 +48,24 @@ $('#Login').submit(function (e) {
 $('#google').click(function(){
   var provider = new firebase.auth.GoogleAuthProvider();
 
-  firebase.auth().signInWithPopup(provider).then();
+  firebase.auth()
+  .signInWithPopup(provider)
+  .then((result) => {
+    /** @type {firebase.auth.OAuthCredential} */
+
+    // The signed-in user info.
+    var user = result.user;
+    console.log(user, "sign in via google");
+    // IdP data available in result.additionalUserInfo.profile.
+      // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
 })
