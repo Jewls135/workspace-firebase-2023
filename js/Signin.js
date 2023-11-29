@@ -51,8 +51,6 @@ $('#google').click(function(){
   firebase.auth()
   .signInWithPopup(provider)
   .then((result) => {
-    /** @type {firebase.auth.OAuthCredential} */
-
     // The signed-in user info.
     var user = result.user;
     console.log(user, "sign in via google");
