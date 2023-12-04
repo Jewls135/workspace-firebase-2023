@@ -18,15 +18,14 @@ $("#signup-form").submit(function(e) {
   var username = $('input[name="fullname"]').val();
   var email = $('input[name="username"]').val()
   var password = $('input[name="password"]').val();
-  var confirmedpassword = "";
+  var confirmedpassword = $('input[name="cpassword"]').val();
 
   // check if pass is confirmed or not
-
-  /*if(!(password == confirmedpassword)){
+  if(password != confirmedpassword){
     // password is wrong so clear form and dont run the rest of the code
     $("signup-form")[0].reset();
     return;
-  }*/
+  }
 
   // create a user with email address and password
   firebase
@@ -34,13 +33,29 @@ $("#signup-form").submit(function(e) {
     .createUserWithEmailAndPassword(email, password)
     .then((result) => {
       // Signed in
+      
       let user = result.user;
       user.updateProfile({
         displayName: username
-      })
+      }).then(() => {
+        console.log("update profile successfully");
+        console.log(user.displayName, "are signed up");
+
+        let date = "Wed, 29 2023 09:28:00 GMT";
+        let userinformation = {
+          "username": user.displayName,
+          "email": email,
+          "signupdate":date
+        };
+
+        let db = firebase.firestore();
+        db.collection("usertable").doc(user.displayName).set(userinformation).then(() => {
+          console.log("information saved to firestore");
+          window.location.href = "Login.html";
+        });
+      });
       // ...
-      console.log(username, " \are signed up");
-      window.location.href = "Login.html";
+      console.log(username, "are signed up");
       
     })
     .catch(error => {
