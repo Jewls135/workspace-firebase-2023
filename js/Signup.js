@@ -10,6 +10,8 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+firebase.firebase().collection().orderBy("item").limit(3).get().then()
+
 // save the data
 $("#signup-form").submit(function(e) {
   e.preventDefault();
@@ -26,7 +28,7 @@ $("#signup-form").submit(function(e) {
     $("signup-form")[0].reset();
     return;
   }
-
+  
   // create a user with email address and password
   firebase
     .auth()

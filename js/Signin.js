@@ -35,6 +35,7 @@ $('#Login').submit(function (e) {
         emailVerified = user.emailVerified;
         console.log(name, email, emailVerified);
       }
+      
     })
     .catch((error) => {
 

@@ -17,7 +17,7 @@ var currentemail = "";
 
 // check if user is logged in
 
-firebase.auth().onAuthStateChanged(user =>{
+firebase.auth().onAuthStateChanged(user => {
   if (user){
     currentuser = user.displayName;
     currentemail = user.email;
@@ -26,6 +26,16 @@ firebase.auth().onAuthStateChanged(user =>{
     console.log("User is logged out");
     window.location.href="Login.html";
   }
+});
+
+// sign out code
+$('#signout').click(function(){
+  firebase.auth().signOut().then(()=>{
+    console.log("User sign out");
+    window.location.href = "index.html";
+  }).catch(() => {
+
+  });
 });
 
 // save the data
